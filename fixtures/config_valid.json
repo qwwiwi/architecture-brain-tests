@@ -1,0 +1,20 @@
+{
+  "_comment": "Valid gateway config for tests",
+  "poll_interval_sec": 2,
+  "firebase_sa": "sa-test",
+  "allowlist_user_ids": [111111, 222222],
+  "agents": {
+    "testagent": {
+      "enabled": true,
+      "telegram_bot_token_file": "/tmp/test-bot-token",
+      "workspace": "/tmp/test-workspace/.claude",
+      "env": {
+        "AGENT_ID": "testagent",
+        "ORGBUS_SA": "sa-test"
+      },
+      "model": "opus",
+      "timeout_sec": 900,
+      "system_reminder": "You are a test agent."
+    }
+  }
+}
