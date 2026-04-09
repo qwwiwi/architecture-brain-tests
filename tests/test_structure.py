@@ -207,8 +207,95 @@ class TestInstallSh:
         assert "skills" in install_sh_text
 
 
+class TestVibeKanban:
+    """T11.6: Vibe Kanban integration across all files."""
+
+    def test_settings_json_has_mcp_kanban(self) -> None:
+        """settings.json.template has vibe-kanban MCP server."""
+        text = (REPO_ROOT / "templates" / "settings.json.template").read_text()
+        assert "vibe-kanban" in text
+        assert "mcpServers" in text
+
+    def test_settings_json_has_npx_permission(self) -> None:
+        """settings.json.template allows npx commands."""
+        text = (REPO_ROOT / "templates" / "settings.json.template").read_text()
+        assert "npx" in text
+
+    def test_agents_template_has_kanban_section(self) -> None:
+        """AGENTS.md.template has Task Board (Vibe Kanban) section."""
+        text = (REPO_ROOT / "templates" / "AGENTS.md.template").read_text()
+        assert "Vibe Kanban" in text
+        assert "list_workspaces" in text
+
+    def test_tools_template_has_kanban_section(self) -> None:
+        """TOOLS.md.template has Kanban section."""
+        text = (REPO_ROOT / "templates" / "TOOLS.md.template").read_text()
+        assert "vibe-kanban" in text
+        assert "SQLite" in text
+
+    def test_multi_agent_has_kanban_section(self) -> None:
+        """MULTI-AGENT.md has Task Management -- Vibe Kanban section."""
+        text = (REPO_ROOT / "MULTI-AGENT.md").read_text()
+        assert "Task Management -- Vibe Kanban" in text
+        assert "list_workspaces" in text
+        assert "create_session" in text
+
+    def test_multi_agent_has_kanban_in_directory_layout(self) -> None:
+        """MULTI-AGENT.md includes kanban/ in directory layout."""
+        text = (REPO_ROOT / "MULTI-AGENT.md").read_text()
+        assert "kanban/" in text
+
+    def test_multi_agent_has_kanban_in_communication(self) -> None:
+        """MULTI-AGENT.md lists Vibe Kanban as communication channel."""
+        text = (REPO_ROOT / "MULTI-AGENT.md").read_text()
+        assert "4 channels" in text
+        assert "Vibe Kanban" in text
+
+    def test_multi_agent_has_kanban_in_design_decisions(self) -> None:
+        """MULTI-AGENT.md has Vibe Kanban as Key Design Decision."""
+        text = (REPO_ROOT / "MULTI-AGENT.md").read_text()
+        assert "Vibe Kanban -- local task board" in text
+
+    def test_files_reference_has_kanban_layer(self) -> None:
+        """FILES-REFERENCE.md has Task Board layer."""
+        text = (REPO_ROOT / "FILES-REFERENCE.md").read_text()
+        assert "Vibe Kanban" in text
+        assert "MCP tools" in text.lower() or "MCP" in text
+
+    def test_files_reference_has_kanban_in_access_matrix(self) -> None:
+        """FILES-REFERENCE.md access matrix includes Vibe Kanban."""
+        text = (REPO_ROOT / "FILES-REFERENCE.md").read_text()
+        assert "Vibe Kanban" in text
+        # Check it's in the access matrix table
+        lines = [l for l in text.split("\n") if "Vibe Kanban" in l and "|" in l]
+        assert len(lines) >= 1, "Vibe Kanban not in access matrix table"
+
+    def test_readme_has_kanban_in_tree(self) -> None:
+        """README.md includes kanban/ in directory tree."""
+        text = (REPO_ROOT / "README.md").read_text()
+        assert "kanban/" in text
+
+    def test_readme_has_task_board_section(self) -> None:
+        """README.md has Task Board section."""
+        text = (REPO_ROOT / "README.md").read_text()
+        assert "## Task Board" in text
+        assert "npx vibe-kanban" in text
+
+    def test_skill_vibe_kanban_exists(self) -> None:
+        """skills/vibe-kanban/SKILL.md exists with MCP instructions."""
+        text = (REPO_ROOT / "skills" / "vibe-kanban" / "SKILL.md").read_text()
+        assert "MCP" in text
+        assert "list_workspaces" in text
+        assert "create_session" in text
+
+    def test_install_sh_references_vibe_kanban(self) -> None:
+        """install.sh installs vibe-kanban skill."""
+        text = (REPO_ROOT / "install.sh").read_text()
+        assert "vibe-kanban" in text
+
+
 class TestCrossReferences:
-    """T11.6: Cross-reference consistency."""
+    """T11.7: Cross-reference consistency."""
 
     def test_no_firebase_in_public_docs(self) -> None:
         """No Firebase/orgbus references in public documentation."""
