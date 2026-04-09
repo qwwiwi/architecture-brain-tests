@@ -30,6 +30,7 @@ BASE_SKILLS = [
     "youtube-transcript",
     "twitter",
     "quick-reminders",
+    "vibe-kanban",
 ]
 
 SKILLS_DIR = REPO_ROOT / "skills"
@@ -88,12 +89,12 @@ class TestSkillExistence:
         assert skill_md.is_file(), f"Missing SKILL.md: {skill_md}"
 
     def test_total_skill_count(self) -> None:
-        """Exactly 10 base skills in skills/ directory."""
+        """Exactly 11 base skills in skills/ directory."""
         dirs = [
             d for d in SKILLS_DIR.iterdir()
             if d.is_dir() and not d.name.startswith(".")
         ]
-        assert len(dirs) >= 10, f"Expected 10+ skills, found {len(dirs)}: {[d.name for d in dirs]}"
+        assert len(dirs) >= 11, f"Expected 11+ skills, found {len(dirs)}: {[d.name for d in dirs]}"
 
 
 class TestSkillFrontmatter:

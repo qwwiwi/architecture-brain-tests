@@ -85,6 +85,7 @@ BASE_SKILLS = [
     "youtube-transcript",
     "twitter",
     "quick-reminders",
+    "vibe-kanban",
 ]
 
 
