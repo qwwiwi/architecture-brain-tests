@@ -1,12 +1,12 @@
 """T10: Skills validation.
 
 Tests:
-- All 10 base skills exist
+- All 11 base skills exist
 - Each skill has SKILL.md with valid frontmatter
 - Scripts are present and executable (where expected)
 - Skill names match directory names
 - No hardcoded secrets in skill files
-- install.sh lists all 10 skills
+- install.sh lists all 11 skills
 """
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ BASE_SKILLS = [
     "superpowers",
     "markdown-new",
     "excalidraw",
-    "git-workflows",
-    "skill-creator",
+    "datawrapper",
+    "perplexity-research",
     "gws",
     "youtube-transcript",
     "twitter",
@@ -39,7 +39,6 @@ SKILLS_DIR = REPO_ROOT / "skills"
 SKILLS_WITH_SCRIPTS: dict[str, list[str]] = {
     "groq-voice": ["transcribe.sh"],
     "excalidraw": ["excalidraw_gen.py"],
-    "skill-creator": ["init_skill.py", "package_skill.py", "quick_validate.py"],
     "gws": ["health-check.sh"],
     "youtube-transcript": ["tapi-auth.js"],
     "quick-reminders": ["nohup-reminder.sh"],
@@ -226,9 +225,7 @@ class TestSkillContent:
 class TestSkillReferences:
     """T10.5: Skills referenced correctly in other files."""
 
-    def test_skill_creator_has_references(self) -> None:
-        """skill-creator has references/ directory with content."""
-        refs_dir = SKILLS_DIR / "skill-creator" / "references"
-        assert refs_dir.is_dir(), "skill-creator missing references/"
-        ref_files = list(refs_dir.glob("*.md"))
-        assert len(ref_files) >= 2, f"Expected 2+ reference files, found {len(ref_files)}"
+    def test_superpowers_has_skill_md(self) -> None:
+        """superpowers has SKILL.md with meaningful content."""
+        text = (SKILLS_DIR / "superpowers" / "SKILL.md").read_text()
+        assert len(text) > 50, "superpowers/SKILL.md too short"
