@@ -20,6 +20,16 @@ Covers the full pipeline: **Telegram message -> Gateway -> Claude Code -> Respon
 | **T10: Compression** | trim-hot.sh input/output, bash fallback, Sonnet mock | Integration |
 | **T11: WARM Rotation** | rotate-warm.sh 14d cutoff, move to COLD | Integration |
 | **T12: End-to-End** | Full pipeline: Telegram -> Gateway -> Claude -> Memory | E2E |
+| **T13: Agent Laws** | AGENT-LAWS.md structure, 9 principles, superpowers | Unit |
+| **T14: Structure** | Repo structure, templates, skills, install.sh, Vibe Kanban | Unit |
+| **T15: Content API** | UUID detection, video_id extraction, tariff access | Unit |
+| **T16: Skills** | 11 base skills, SKILL.md frontmatter, no secrets | Unit |
+| **T17: Settings** | settings.json template, permissions, hooks format, MCP | Unit |
+| **T18: Hooks** | Lifecycle events, handler types, enforcement, examples | Unit |
+| **T19: Cron Pipeline** | Script safety, flock, Sonnet fallback, cron order | Integration |
+| **T20: Security** | No secrets in templates, secrets paths, git safety | Unit |
+| **T21: Context Budget** | Token budgets, file size limits, compression docs | Unit |
+| **T22: Workspace** | Naming conventions, directory structure, symlinks | Unit |
 
 ## Quick Start
 
@@ -61,7 +71,17 @@ architecture-brain-tests/
 │   ├── test_openviking.py # T9: OpenViking push
 │   ├── test_compression.py# T10: Memory compression
 │   ├── test_rotation.py   # T11: WARM rotation
-│   └── test_e2e.py        # T12: End-to-end
+│   ├── test_e2e.py        # T12: End-to-end
+│   ├── test_agent_laws.py # T13: Agent laws
+│   ├── test_structure.py  # T14: Workspace structure
+│   ├── test_content_api.py# T15: Content API
+│   ├── test_skills.py     # T16: Skills validation
+│   ├── test_settings.py   # T17: Settings template
+│   ├── test_hooks.py      # T18: Hook system
+│   ├── test_cron_pipeline.py # T19: Cron pipeline
+│   ├── test_security.py   # T20: Security
+│   ├── test_context_budget.py # T21: Token budget
+│   └── test_workspace_conventions.py # T22: Workspace conventions
 ├── fixtures/
 │   ├── config_valid.json  # Valid gateway config
 │   ├── config_invalid.json# Broken config for error tests
