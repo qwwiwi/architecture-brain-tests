@@ -84,7 +84,7 @@ class TestWorkspace:
 
         Contract: subprocess.Popen(cmd, cwd=workspace, ...)
         """
-        workspace = "/home/openclaw/.claude-lab/thrall/.claude"
+        workspace = "/home/user/.claude-lab/agent/.claude"
         # Workspace must exist and be a directory
         # In real test, we'd check Path(workspace).is_dir()
         assert workspace.endswith(".claude")
