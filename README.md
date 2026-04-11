@@ -30,6 +30,7 @@ Covers the full pipeline: **Telegram message -> Gateway -> Claude Code -> Respon
 | **T20: Security** | No secrets in templates, secrets paths, git safety | Unit |
 | **T21: Context Budget** | Token budgets, file size limits, compression docs | Unit |
 | **T22: Workspace** | Naming conventions, directory structure, symlinks | Unit |
+| **T23: Learnings** | LEARNINGS.md format, git workflow, access zones, Repeats metric | Unit |
 
 ## Quick Start
 
@@ -81,7 +82,8 @@ architecture-brain-tests/
 │   ├── test_cron_pipeline.py # T19: Cron pipeline
 │   ├── test_security.py   # T20: Security
 │   ├── test_context_budget.py # T21: Token budget
-│   └── test_workspace_conventions.py # T22: Workspace conventions
+│   ├── test_workspace_conventions.py # T22: Workspace conventions
+│   └── test_learnings.py     # T23: Learnings feedback loop
 ├── fixtures/
 │   ├── config_valid.json  # Valid gateway config
 │   ├── config_invalid.json# Broken config for error tests
