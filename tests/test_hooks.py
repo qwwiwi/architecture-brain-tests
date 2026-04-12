@@ -34,13 +34,21 @@ class TestHookLifecycleEvents:
         "Stop",
         "PreToolUse",
         "PostToolUse",
+        "UserPromptSubmit",
+        "PreCompact",
     ]
 
     OPTIONAL_EVENTS = [
         "SessionStart",
         "SessionEnd",
-        "PreCompact",
         "PostCompact",
+        "PostToolUseFailure",
+        "SubagentStart",
+        "SubagentStop",
+        "FileChanged",
+        "CwdChanged",
+        "TaskCreated",
+        "TaskCompleted",
     ]
 
     @pytest.mark.parametrize("event", REQUIRED_EVENTS)
@@ -49,12 +57,50 @@ class TestHookLifecycleEvents:
         text = load_hooks_md()
         assert event in text, f"HOOKS.md must document {event} event"
 
-    def test_at_least_5_events_total(self) -> None:
-        """HOOKS.md must document at least 5 lifecycle events."""
+    def test_at_least_10_events_total(self) -> None:
+        """HOOKS.md must document at least 10 lifecycle events."""
         text = load_hooks_md()
         all_events = self.REQUIRED_EVENTS + self.OPTIONAL_EVENTS
         found = sum(1 for e in all_events if e in text)
-        assert found >= 5, f"Found only {found} events, need at least 5"
+        assert found >= 10, f"Found only {found} events, need at least 10"
+
+    def test_user_prompt_submit_documented(self) -> None:
+        """UserPromptSubmit event must be documented with its behavior."""
+        text = load_hooks_md()
+        assert "UserPromptSubmit" in text, (
+            "HOOKS.md must document UserPromptSubmit event"
+        )
+        # UserPromptSubmit should mention that stdout is added to context
+        assert "context" in text.lower(), (
+            "HOOKS.md must explain UserPromptSubmit stdout goes to context"
+        )
+
+    def test_pre_compact_documented(self) -> None:
+        """PreCompact event must be documented."""
+        text = load_hooks_md()
+        assert "PreCompact" in text, "HOOKS.md must document PreCompact event"
+
+    def test_user_prompt_submit_in_lifecycle_table(self) -> None:
+        """UserPromptSubmit must appear in the lifecycle events table."""
+        text = load_hooks_md()
+        lines = text.split("\n")
+        table_lines = [
+            ln for ln in lines
+            if "UserPromptSubmit" in ln and "|" in ln
+        ]
+        assert table_lines, (
+            "UserPromptSubmit must be in the lifecycle events table"
+        )
+
+    def test_pre_compact_in_lifecycle_table(self) -> None:
+        """PreCompact must appear in the lifecycle events table."""
+        text = load_hooks_md()
+        lines = text.split("\n")
+        table_lines = [
+            ln for ln in lines
+            if "PreCompact" in ln and "|" in ln
+        ]
+        assert table_lines, "PreCompact must be in the lifecycle events table"
 
 
 # --- Handler types ---
