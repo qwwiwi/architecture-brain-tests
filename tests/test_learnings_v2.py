@@ -178,7 +178,7 @@ class TestPromotionPyramid:
         )
 
     def test_pyramid_five_levels(self) -> None:
-        """Pyramid must document at least 4 distinct levels."""
+        """Pyramid must document at least 5 distinct levels."""
         text = load_md("LEARNINGS.md")
         # Count recognized pyramid levels in the doc
         levels = [
@@ -191,7 +191,7 @@ class TestPromotionPyramid:
         found = sum(
             1 for lvl in levels if re.search(lvl, text, re.I)
         )
-        assert found >= 4, (
+        assert found >= 5, (
             f"Only {found}/5 pyramid levels found in LEARNINGS.md. "
             "Must document all 5: session memory, episodes.jsonl, "
             "TOOLS/SKILL.md, CLAUDE.md, hooks/scripts."

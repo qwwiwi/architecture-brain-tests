@@ -141,14 +141,15 @@ class TestE2EForwardedMessage:
 class TestE2EContextLoading:
     """T12.5: Context loading on session start.
 
-    On first turn, these files are loaded into Claude context:
+    On first turn, these 4 @includes are loaded into Claude context:
     1. CLAUDE.md (SOUL + identity)
-    2. AGENTS.md (operating rules)
-    3. USER.md (who the user is)
-    4. rules.md (boundaries)
-    5. warm/decisions.md (recent decisions)
-    6. hot/recent.md (last 72h journal)
-    7. TOOLS.md (available tools)
+    2. USER.md (who the user is)
+    3. rules.md (boundaries)
+    4. warm/decisions.md (recent decisions)
+    5. hot/handoff.md (last 10 entries from recent.md)
+
+    AGENTS.md and TOOLS.md are on-demand (Read tool, not auto-loaded).
+    recent.md is NOT loaded directly -- handoff.md is extracted from it.
     """
 
     def test_context_files_exist(self, tmp_workspace: Any) -> None:

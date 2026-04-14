@@ -190,18 +190,22 @@ class TestInstallCompleteness:
         text = load_install()
         # Count skill names mentioned
         skills = [
-            "groq-voice", "superpowers", "excalidraw", "perplexity-research",
-            "gws", "youtube-transcript", "twitter", "quick-reminders", "vibe-kanban",
+            "groq-voice", "superpowers", "markdown-new", "excalidraw", "datawrapper",
+            "perplexity-research", "gws", "youtube-transcript", "twitter",
+            "quick-reminders", "vibe-kanban",
         ]
         found = sum(1 for s in skills if s in text)
-        assert found >= 9, f"install.sh must install base skills, found {found}/9+"
+        assert found >= 11, f"install.sh must install base skills, found {found}/11+"
 
     def test_copies_memory_scripts(self) -> None:
-        """install.sh must copy all 4 memory scripts."""
+        """install.sh must copy all 5 memory scripts."""
         text = load_install()
-        scripts = ["trim-hot", "compress-warm", "rotate-warm", "memory-rotate"]
+        scripts = [
+            "trim-hot", "compress-warm", "rotate-warm", "memory-rotate",
+            "ov-session-sync",
+        ]
         found = sum(1 for s in scripts if s in text)
-        assert found >= 4, f"install.sh must copy all 4 scripts, found {found}/4"
+        assert found >= 5, f"install.sh must copy all 5 scripts, found {found}/5"
 
     def test_shows_cron_setup(self) -> None:
         """install.sh must show cron setup instructions."""

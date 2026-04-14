@@ -68,11 +68,15 @@ class TestHotMemoryFormat:
         append_to_hot_memory(hot_file, "thrall", text_with_newlines, "ok", "own_text")
 
         content = hot_file.read_text()
-        # Entry lines should not have the original newlines
+        # Verify multi-line input was flattened to spaces in output
         for line in content.split("\n"):
             if line.startswith("**Принц:**"):
-                assert "\n" not in line.replace("\n", "")  # trivially true
-                assert "line1 line2 line3" in line
+                assert "line1 line2 line3" in line, (
+                    "Multi-line input must be flattened: newlines replaced with spaces"
+                )
+                # Original newlines must not survive in the snippet
+                snippet = line.replace("**Принц:** ", "")
+                assert "\n" not in snippet, "Snippet must not contain embedded newlines"
 
     def test_empty_response_fallback(self, tmp_workspace: Path) -> None:
         """Empty agent response shows (inline)."""
@@ -90,7 +94,7 @@ class TestEmergencyTrim:
         """File >20480 bytes triggers emergency trim."""
         hot_file = tmp_workspace / "core" / "hot" / "recent.md"
         # Write >20KB
-        header = "# Hot memory -- last 72h rolling journal\n"
+        header = "# Hot memory -- last 24h rolling journal\n"
         entries = ""
         for i in range(200):
             entries += f"\n### 2026-04-08 {i:02d}:00 [own_text]\n"
@@ -105,7 +109,7 @@ class TestEmergencyTrim:
         """After trim, file has at most 600 lines + header."""
         hot_file = tmp_workspace / "core" / "hot" / "recent.md"
         # Write many lines
-        lines = ["# Hot memory -- last 72h rolling journal"]
+        lines = ["# Hot memory -- last 24h rolling journal"]
         for i in range(300):
             lines.append(f"\n### 2026-04-08 {i:02d}:00 [own_text]")
             lines.append(f"**Принц:** Message {i}")

@@ -3,7 +3,7 @@
 Tests:
 - All expected directories exist in repo
 - All template files exist
-- install.sh references all 10 skills
+- install.sh references all 11 skills
 - install.sh creates correct directory structure
 - Templates have expected placeholders
 - No broken cross-references between files
@@ -53,6 +53,7 @@ EXPECTED_SCRIPTS = [
     "compress-warm.sh",
     "rotate-warm.sh",
     "memory-rotate.sh",
+    "ov-session-sync.sh",
 ]
 
 EXPECTED_DOCS = [
@@ -174,7 +175,7 @@ class TestInstallSh:
     def test_install_sh_references_skill(
         self, install_sh_text: str, skill_name: str
     ) -> None:
-        """install.sh lists all 10 base skills."""
+        """install.sh lists all 11 base skills."""
         assert skill_name in install_sh_text, (
             f"install.sh doesn't reference skill: {skill_name}"
         )

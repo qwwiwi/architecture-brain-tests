@@ -226,14 +226,14 @@ class TestLearningsGitWorkflow:
 
 
 class TestLearningsTriggers:
-    """T23.8: Minimum 4 triggers documented."""
+    """T23.8: Minimum 5 triggers documented."""
 
     @pytest.fixture
     def doc_text(self) -> str:
         return LEARNINGS_DOC.read_text().lower()
 
     def test_learnings_triggers_count(self, doc_text: str) -> None:
-        """At least 4 triggers documented in Triggers section."""
+        """At least 5 triggers documented in Triggers section."""
         # Find lines in the triggers table
         trigger_section = doc_text.split("## trigger")
         assert len(trigger_section) >= 2, (
@@ -245,8 +245,8 @@ class TestLearningsTriggers:
             line for line in trigger_text.split("\n")
             if "|" in line and "---" not in line and "trigger" not in line.lower().split("|")[0]
         ]
-        assert len(rows) >= 4, (
-            f"Expected at least 4 triggers, found {len(rows)}"
+        assert len(rows) >= 5, (
+            f"Expected at least 5 triggers, found {len(rows)}"
         )
 
     @pytest.mark.parametrize("trigger", REQUIRED_TRIGGERS)

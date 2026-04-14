@@ -73,7 +73,7 @@ def skill_dirs() -> dict[str, Path]:
 
 
 class TestSkillExistence:
-    """T10.1: All 10 base skills exist."""
+    """T10.1: All 11 base skills exist."""
 
     @pytest.mark.parametrize("skill_name", BASE_SKILLS)
     def test_skill_directory_exists(self, skill_name: str) -> None:

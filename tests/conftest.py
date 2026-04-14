@@ -50,7 +50,7 @@ def tmp_workspace(tmp_path: Path) -> Path:
     (ws / "core" / "warm").mkdir(parents=True)
     (ws / "scripts").mkdir(parents=True)
     # Create minimal hot memory
-    (ws / "core" / "hot" / "recent.md").write_text("# Hot memory -- last 72h rolling journal\n")
+    (ws / "core" / "hot" / "recent.md").write_text("# Hot memory -- last 24h rolling journal\n")
     (ws / "core" / "warm" / "decisions.md").write_text("# WARM DECISIONS -- Test\n")
     (ws / "core" / "MEMORY.md").write_text("# COLD MEMORY\n")
     return ws
