@@ -81,7 +81,15 @@ class TestSecretsPath:
         """Templates referencing secrets must use shared/secrets/ path."""
         for path in all_template_files():
             text = path.read_text(encoding="utf-8")
-            if "secret" not in text.lower() and "token" not in text.lower():
+            text_lower = text.lower()
+            if "secret" not in text_lower and "token" not in text_lower:
+                continue
+            # Skip false positives: env var names like MAX_THINKING_TOKENS
+            token_lines = [l for l in text.splitlines()
+                           if "secret" in l.lower() or "token" in l.lower()]
+            real_secret_refs = [l for l in token_lines
+                                if not all(w in l for w in ["THINKING_TOKENS", "MAX_"])]
+            if not real_secret_refs:
                 continue
             # If it mentions secrets, it should use shared/secrets/ or secrets/ path
             has_correct_path = (
